@@ -1,0 +1,13 @@
+#!/usr/bin/with-contenv bash
+
+#remove x11 lock file before we start a new one, in case of a container restart
+if [ ! -d "/tmp/.X11-unix" ]; then
+echo "X11 is good to go"
+else
+rm -rf /tmp/.11-unix
+fi
+
+exec \
+	#/bin/s6-notifyoncheck -d x11vnc -forever -loop -noxdamage -repeat -display $DISPLAY -rfbauth /root/.vnc/passwd -rfbport 5900 -shared -ncache 10
+	s6-setuidgid abc x11vnc -forever -loop -noxdamage -repeat -display $DISPLAY -geometry 1280x768 -rfbauth /config/.vnc/passwd -rfbport 5900 -shared
+	#-ncache 10
