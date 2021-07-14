@@ -7,7 +7,6 @@ ARG VERSION
 LABEL build_version="version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="Thies88"
 
-<<<<<<< HEAD
 #Define display vars
 #ENV REL=bionic
 ENV VNCPASSWD=""
@@ -16,19 +15,18 @@ ENV DISPLAY_WIDTH=1280
 ENV DISPLAY_HEIGHT=768
 #Color depth 
 ENV DEPTH=24
-=======
+
 # set version for s6 overlay
 #ARG OVERLAY_VERSION="v1.22.0.0"
 ARG OVERLAY_VERSION="v2.1.0.2"
 ARG OVERLAY_ARCH="amd64"
->>>>>>> 39dde1fbe4b211cbc3a76b3c5e07c658d769bd75
+
 
 RUN \
  echo "### enable src repos ##" && \
  sed -i "/^#.*deb.*main restricted$/s/^# //g" /etc/apt/sources.list && \
  sed -i "/^#.*deb.*universe$/s/^# //g" /etc/apt/sources.list && \
 
-<<<<<<< HEAD
 #echo "Adding nginx repo to fetch latest version of nginx for ${REL}" && \
 #echo "deb [arch=amd64] http://nginx.org/packages/mainline/ubuntu/ ${REL} nginx" > /etc/apt/sources.list.d/nginx.list && \
 #echo "deb-src http://nginx.org/packages/mainline/ubuntu/ ${REL} nginx" >> /etc/apt/sources.list.d/nginx.list && \
@@ -134,7 +132,6 @@ apt install -y --no-install-recommends \
 # Clean more temp/junk files
 #apt-get autoremove -y --purge && \
 apt-get clean && \
-=======
 # copy sources (replaced with sed: See RUN)
 # COPY sources.list /etc/apt/
 
@@ -221,7 +218,6 @@ RUN \
 	/tmp/* \
 	/var/cache/apt \
 	/var/lib/apt/lists/* \
-<<<<<<< HEAD
 	/var/cache/apt/* \
 	/var/tmp/* \
 	/var/log/* \
@@ -244,7 +240,6 @@ RUN \
 COPY root/ /
 
 ENTRYPOINT ["/bin/bash", "/init"]
-=======
 	/var/tmp/* \
 	/var/log/* \
 	/usr/share/locale/* \
@@ -261,4 +256,3 @@ ENTRYPOINT ["/bin/bash", "/init"]
 # chmod -R 500 /docker-mods
 
 ENTRYPOINT ["/init"]
->>>>>>> 39dde1fbe4b211cbc3a76b3c5e07c658d769bd75
